@@ -1,4 +1,5 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
+﻿using JetBrains.Annotations;
+using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
@@ -6,13 +7,14 @@ using Mmu.NuGetLicenceBuddy.Infrastructure.Logging;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Implementation
 {
+    [UsedImplicitly]
     public class NugetLicenceFactory(
         ILicenceFileReader fileReader,
         ILoggingService logger,
         INuspecReaderFactory nuspecReaderFactory)
         : INugetLicenceFactory
     {
-        public async Task<IReadOnlyCollection<NugetLicence>> CreateAllAsync(IReadOnlyCollection<NugetPackage> packages)
+        public async Task<IReadOnlyCollection<NugetLicence>> CreateAllAsync(IReadOnlyCollection<PackageIdentifier> packages)
         {
             var result = new List<NugetLicence>();
 

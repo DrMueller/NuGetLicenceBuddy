@@ -5,6 +5,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services
 {
     public interface INugetLicenceFactory
     {
-        Task<IReadOnlyCollection<NugetLicence>> CreateAllAsync(IReadOnlyCollection<NugetPackage> packages);
+        Task<IReadOnlyCollection<NugetLicence>> CreateAllAsync(IReadOnlyCollection<PackageIdentifier> packages);
     }
 }

@@ -1,10 +1,12 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
+﻿using JetBrains.Annotations;
+using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants.Implementation
 {
+    [UsedImplicitly]
     public class LicenceFileReader(
         ILoggingService logger,
         IHttpClientFactory httpClientFactory)

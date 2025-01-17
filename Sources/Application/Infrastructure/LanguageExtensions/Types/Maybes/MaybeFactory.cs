@@ -8,6 +8,5 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
         {
             return possiblyNull == null ? None.Value : possiblyNull;
         }
-
     }
 }
