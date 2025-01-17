@@ -27,15 +27,16 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models
         public static Licence MSPL => new("MS-PL", "MS PL", "todo");
         public static Licence None => new("None", "None", "None");
 
+        public string Name { get; } = name;
+
         private string Identifier { get; } = identifier;
         private string LicenceTextPart { get; } = licenceTextPart;
-        
-        public string Name { get; } = name;
 
         public static Maybe<Licence> TryFindingByText(string licenceText)
         {
             var lowerText = licenceText.ToLower();
             var licence = _allLicences.SingleOrDefault(f => lowerText.Contains(f.LicenceTextPart));
+
             return MaybeFactory.CreateFromNullable(licence);
         }
     }
