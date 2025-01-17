@@ -1,6 +1,6 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models;
+﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Services.Servants
+namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Servants
 {
     public interface ITransitiveDependencyFactory
     {

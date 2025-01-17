@@ -1,8 +1,10 @@
 ﻿using System.Text;
+using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.Outputs.Services.Implementation
 {
+    [UsedImplicitly]
     public class MarkdownTableFactory : IMarkdownTableFactory
     {
         public string CreateTable(IReadOnlyCollection<NugetLicence> licences)

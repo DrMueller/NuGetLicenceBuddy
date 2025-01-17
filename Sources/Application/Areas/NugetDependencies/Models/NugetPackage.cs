@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Invariance;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models
+namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models
 {
     [PublicAPI]
     public class NugetPackage
@@ -13,6 +13,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models
             Guard.ObjectNotNull(() => identifier);
             Guard.ObjectNotNull(() => transitiveDependencies);
 
+            DependsOn = new List<NugetPackage>();
             Identifier = identifier;
             TransitiveDependencies = transitiveDependencies;
         }

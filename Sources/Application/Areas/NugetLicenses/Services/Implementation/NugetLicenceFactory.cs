@@ -1,4 +1,4 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models;
+﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models;
+﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services

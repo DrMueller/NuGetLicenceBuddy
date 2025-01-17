@@ -1,5 +1,8 @@
-﻿namespace Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Implementation
+﻿using JetBrains.Annotations;
+
+namespace Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Implementation
 {
+    [UsedImplicitly]
     public class LoggingService : ILoggingService
     {
         public void LogDebug(string message)

@@ -5,6 +5,7 @@ using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Imple
 
 namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
 {
+    [PublicAPI]
     public static class MaybeAdapter
     {
         public static async Task<Maybe<TNew>> BindAsync<T, TNew>(
@@ -22,11 +23,8 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
             return map(someValue);
         }
 
-        public static async Task<Maybe<TNew>> MapAsync<T, TNew>(
-            this Task<Maybe<T>> maybeTask, 
-            Func<T, TNew> map)
+        public static Maybe<TNew> Map<T, TNew>(this Maybe<T> maybe, Func<T, TNew> map)
         {
-            var maybe = await maybeTask;
             if (maybe is None<T>)
             {
                 return None.Value;
@@ -37,8 +35,11 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
             return map(someValue);
         }
 
-        public static Maybe<TNew> Map<T, TNew>(this Maybe<T> maybe, Func<T, TNew> map)
+        public static async Task<Maybe<TNew>> MapAsync<T, TNew>(
+            this Task<Maybe<T>> maybeTask,
+            Func<T, TNew> map)
         {
+            var maybe = await maybeTask;
             if (maybe is None<T>)
             {
                 return None.Value;

@@ -1,19 +1,13 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models;
-using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Services.Servants;
+﻿using JetBrains.Annotations;
+using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
+using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Servants;
 using Newtonsoft.Json.Linq;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Services.Implementation
+namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Implementation
 {
-    public class DependencyGraphFactory : IDependencyGraphFactory
+    [UsedImplicitly]
+    public class DependencyGraphFactory(ITransitiveDependencyFactory transitiveDepFactory) : IDependencyGraphFactory
     {
-        private readonly ITransitiveDependencyFactory _transitiveDepFactory;
-
-        public DependencyGraphFactory(
-            ITransitiveDependencyFactory transitiveDepFactory)
-        {
-            _transitiveDepFactory = transitiveDepFactory;
-        }
-
         public async Task<DependencyGraph> CreateFromJsonAsync(string json)
         {
             var root = JObject.Parse(json);
@@ -48,7 +42,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Services.Im
                     }
                 }
 
-                var transitiveDeps = await _transitiveDepFactory.CreateAsync(target.Name, new NugetIdentifier(dep.Name));
+                var transitiveDeps = await transitiveDepFactory.CreateAsync(target.Name, new NugetIdentifier(dep.Name));
 
                 var nuget = new NugetPackage(
                     PackageIdentifier.Parse(dep.Name),

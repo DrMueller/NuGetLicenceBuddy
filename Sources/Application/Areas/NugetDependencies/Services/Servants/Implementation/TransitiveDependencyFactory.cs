@@ -1,4 +1,5 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models;
+﻿using JetBrains.Annotations;
+using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 using NuGet.Common;
 using NuGet.Frameworks;
 using NuGet.Packaging.Core;
@@ -6,8 +7,9 @@ using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Services.Servants.Implementation
+namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Servants.Implementation
 {
+    [UsedImplicitly]
     public class TransitiveDependencyFactory : ITransitiveDependencyFactory
     {
         public async Task<IReadOnlyCollection<TransitiveDependency>> CreateAsync(
@@ -23,6 +25,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Services.Se
             var packageIdentity = new PackageIdentity(nugetIdentifier.Name, NuGetVersion.Parse(nugetIdentifier.Version));
 
             var dependencies = await GetTransitiveDependencies(resource, packageIdentity, framework, logger, cache);
+            // ReSharper disable once PossibleUnintendedReferenceComparison
             var depsWithoutOriginalPackage = dependencies.Where(f => f != packageIdentity).ToList();
 
             var transDeps = depsWithoutOriginalPackage

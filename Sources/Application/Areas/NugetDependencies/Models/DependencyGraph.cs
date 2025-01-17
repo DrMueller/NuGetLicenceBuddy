@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models
+namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models
 {
     [PublicAPI]
     public class DependencyGraph(string targetVersion, IReadOnlyCollection<NugetPackage> packages)

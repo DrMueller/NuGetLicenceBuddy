@@ -11,8 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\NugetDependencies\ByAssetsJson\**" />
     <Compile Remove="Areas\Orchestration\NewFolder\**" />
+    <EmbeddedResource Remove="Areas\NugetDependencies\ByAssetsJson\**" />
     <EmbeddedResource Remove="Areas\Orchestration\NewFolder\**" />
+    <None Remove="Areas\NugetDependencies\ByAssetsJson\**" />
     <None Remove="Areas\Orchestration\NewFolder\**" />
   </ItemGroup>
 

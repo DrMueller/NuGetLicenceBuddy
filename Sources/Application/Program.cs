@@ -1,10 +1,11 @@
-﻿using System.Reflection;
+﻿using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.DependencyInjection;
 
 namespace Mmu.NuGetLicenceBuddy
 {
-    internal class Program
+    [PublicAPI]
+    public class Program
     {
         public static async Task Main(string[] args)
         {

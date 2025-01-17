@@ -1,7 +1,8 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models;
+﻿using JetBrains.Annotations;
+using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
+using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
-using modan.FK2.Common.Extensions;
 using NuGet.Common;
 using NuGet.Packaging;
 using NuGet.Packaging.Core;
@@ -11,9 +12,10 @@ using NuGet.Versioning;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants.Implementation
 {
+    [UsedImplicitly]
     public class NuspecReaderFactory : INuspecReaderFactory
     {
-        public async Task<IReadOnlyCollection<NuspecReader>> CreateAllAsync(IReadOnlyCollection<NugetPackage> packages)
+        public async Task<IReadOnlyCollection<NuspecReader>> CreateAllAsync(IReadOnlyCollection<PackageIdentifier> packages)
         {
             var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
             var resource = await repository.GetResourceAsync<FindPackageByIdResource>();
@@ -29,10 +31,10 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants.Implementa
             FindPackageByIdResource resource,
             SourceCacheContext cache,
             NullLogger logger,
-            NugetPackage package)
+            PackageIdentifier package)
         {
-            var nugetVersion = NuGetVersion.Parse(package.Identifier.Version);
-            var packageIdentity = new PackageIdentity(package.Identifier.PackageName, nugetVersion);
+            var nugetVersion = NuGetVersion.Parse(package.Version);
+            var packageIdentity = new PackageIdentity(package.PackageName, nugetVersion);
 
             using var memoryStream = new MemoryStream();
             var res = await resource.CopyNupkgToStreamAsync(

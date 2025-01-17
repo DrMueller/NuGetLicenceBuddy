@@ -1,4 +1,4 @@
-﻿namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.ByAssetsJson.Models
+﻿namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models
 {
     public class NugetIdentifier(string fullName)
     {
