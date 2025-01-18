@@ -13,7 +13,7 @@
 		<Authors>DrMueller</Authors>
 		<Description>DrMuellers little NuGet Licence Buddy</Description>
 		<PackageProjectUrl>https://github.com/DrMueller/NuGetLicenceBuddy</PackageProjectUrl>
-		<PackageIcon>https://raw.githubusercontent.com/DrMueller/NuGetLicenceBuddy/master/Sources/Application/Infrastructure/Assets/M.png</PackageIcon>
+		<PackageIcon>M.png</PackageIcon>
 		<RepositoryUrl>https://github.com/DrMueller/NuGetLicenceBuddy</RepositoryUrl>
 		<RepositoryType></RepositoryType>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -38,7 +38,11 @@
 		<None Remove="Infrastructure\Options\NewFolder\**" />
 		<None Remove="Areas\Orchestration\NewFolder\**" />
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<None Include="Infrastructure\Assets\M.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
 	<ItemGroup>
 		<PackageReference Include="CommandLineParser" Version="2.9.1" />
 		<PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
