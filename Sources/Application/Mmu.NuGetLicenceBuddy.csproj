@@ -25,21 +25,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-		<Compile Remove="Infrastructure\Logging\NewFolder\**" />
-		<Compile Remove="Infrastructure\Options\NewFolder\**" />
-		<Compile Remove="Areas\Orchestration\NewFolder\**" />
-		<EmbeddedResource Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-		<EmbeddedResource Remove="Infrastructure\Logging\NewFolder\**" />
-		<EmbeddedResource Remove="Infrastructure\Options\NewFolder\**" />
-		<EmbeddedResource Remove="Areas\Orchestration\NewFolder\**" />
-		<None Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-		<None Remove="Infrastructure\Logging\NewFolder\**" />
-		<None Remove="Infrastructure\Options\NewFolder\**" />
-		<None Remove="Areas\Orchestration\NewFolder\**" />
-	</ItemGroup>
-	
-	<ItemGroup>
 		<None Include="Infrastructure\Assets\M.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 	

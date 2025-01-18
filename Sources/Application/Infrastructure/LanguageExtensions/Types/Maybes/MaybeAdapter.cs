@@ -52,40 +52,6 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
             return await map(someValue);
         }
 
-        public static async Task<Maybe<T>> TapAsync<T>(
-            this Task<Maybe<T>> maybeTask,
-            Func<T, Task> tap)
-        {
-            var maybe = await maybeTask;
-
-            if (maybe is None<T>)
-            {
-                return None.Value;
-            }
-
-            var someValue = (Some<T>)maybe;
-            await tap(someValue);
-
-            return maybe;
-        }
-
-        public static async Task<Maybe<T>> TapAsync<T>(
-            this Task<Maybe<T>> maybeTask,
-            Action<T> tap)
-        {
-            var maybe = await maybeTask;
-
-            if (maybe is None<T>)
-            {
-                return None.Value;
-            }
-
-            var someValue = (Some<T>)maybe;
-            tap(someValue);
-
-            return maybe;
-        }
-
         public static async Task<Maybe<TNew>> MapAsync<T, TNew>(
             this Task<Maybe<T>> maybeTask,
             Func<T, TNew> map)
@@ -215,6 +181,70 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
 #pragma warning restore CA2021
                 .Select(some => (T)some)
                 .ToList();
+        }
+
+        public static Maybe<T> Tap<T>(
+            this Maybe<T> maybe,
+            Action<T> tap)
+        {
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+            tap(someValue);
+
+            return maybe;
+        }
+
+        public static async Task<Maybe<T>> TapAsync<T>(
+            this Task<Maybe<T>> maybeTask,
+            Func<T, Task> tap)
+        {
+            var maybe = await maybeTask;
+
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+            await tap(someValue);
+
+            return maybe;
+        }
+
+        public static async Task<Maybe<T>> TapAsync<T>(
+            this Maybe<T> maybe,
+            Func<T, Task> tap)
+        {
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+            await tap(someValue);
+
+            return maybe;
+        }
+
+        public static async Task<Maybe<T>> TapAsync<T>(
+            this Task<Maybe<T>> maybeTask,
+            Action<T> tap)
+        {
+            var maybe = await maybeTask;
+
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+            tap(someValue);
+
+            return maybe;
         }
 
         public static Either<TLeft, T> ToEither<TLeft, T>(this Maybe<T> maybe, Func<TLeft> whenNone)

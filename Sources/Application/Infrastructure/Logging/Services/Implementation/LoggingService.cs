@@ -8,10 +8,10 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services.Implementation
     {
         private static readonly IDictionary<LogLevel, string> _prefixMap = new Dictionary<LogLevel, string>
         {
-            { LogLevel.Debug, "##[debug]" },
-            { LogLevel.Info, "##[section]" },
-            { LogLevel.Warning, "##[warning]" },
-            { LogLevel.Error, "##[error]" }
+            { LogLevel.Debug, "##vso[task.debug]" },
+            { LogLevel.Info, string.Empty },
+            { LogLevel.Warning, "##vso[task.issue type=warning;]" },
+            { LogLevel.Error, "##vso[task.issue type=error;]" }
         };
 
         public void LogDebug(string message)

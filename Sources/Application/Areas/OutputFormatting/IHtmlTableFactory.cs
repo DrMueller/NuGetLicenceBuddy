@@ -1,8 +1,8 @@
 ﻿using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.Outputs.Services
+namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting
 {
-    public interface IMarkdownTableFactory
+    public interface IHtmlTableFactory
     {
         string CreateTable(IReadOnlyCollection<NugetLicence> licences);
     }

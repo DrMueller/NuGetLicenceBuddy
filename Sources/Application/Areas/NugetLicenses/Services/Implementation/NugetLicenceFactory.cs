@@ -38,7 +38,9 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Implementation
                     licence));
             }
 
-            return result;
+            return result
+                .OrderBy(f => f.NugetIdentifier)
+                .ToList();
         }
     }
 }
