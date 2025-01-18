@@ -13,7 +13,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
         INugetLicenceFactory licenceFactory,
         IDependencyGraphFactory dependecyGraphFactory,
         IMarkdownTableFactory markdownTableFactory,
-        ILoggingService logger)
+        ILoggingService logger,
+        IOutputWriter outputWriter)
         : IOrchestrator
     {
         public async Task OrchestrateAsync(ToolOptions options)
@@ -39,7 +40,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
 
             var md = markdownTableFactory.CreateTable(nugetLicences);
             await File.WriteAllTextAsync(@"C:\Users\matthias.mueller\Desktop\TMp.md", md);
-            Console.WriteLine(md);
+            logger.LogInfo(md);
+            await outputWriter.WriteToFileAsync(md);
         }
 
         private static IReadOnlyCollection<PackageIdentifier> Map(DependencyGraph graph, bool includeTransitive)
