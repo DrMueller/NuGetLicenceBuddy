@@ -30,4 +30,4 @@ Usage: nugetlicencebuddy [options]
 | ------ | ------------------------- |
 |`-s\|--sources-path <INPUT_PATH>`|Include transitive package licences.|
 |`-i\|--include-transitive`|Source path to search for the project.assets.json file.|
-|`-a\|--alloced-licences <ALLOWED_LICENSES>`|Comma-seperated list for allowed licences, for example 'mit,apache-2'. If none is provided, all licences are allowed.|
+|`-a\|--allowed-licences <ALLOWED_LICENSES>`|Comma-seperated list for allowed licences, for example 'mit,apache-2'. If none is provided, all licences are allowed.|

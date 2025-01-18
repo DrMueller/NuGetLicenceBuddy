@@ -1,2 +1,3 @@
-﻿- ReadMe erstellen
-- Licence key auswechseln
+﻿- Output von allowed licences ist falsch
+- Ordnerstruktur neu aufbauen
+- 

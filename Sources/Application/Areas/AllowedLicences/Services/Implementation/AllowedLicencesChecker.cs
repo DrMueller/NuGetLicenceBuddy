@@ -19,13 +19,13 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 
             var allowedLicencesList = allowedLicences
                 .Split([','], StringSplitOptions.RemoveEmptyEntries)
-                .Select(f => f.ToLower().Trim())
+                .Select(f => f.ToLower().ToUpper())
                 .ToList();
 
             var foundLicenceIds =
                 licences
                     .Select(f => f.Licence.Identifier)
-                    .Select(f => f.ToLower())
+                    .Select(f => f.ToUpper())
                     .Distinct();
 
             var failingLicences = foundLicenceIds
@@ -34,7 +34,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 
             if (!failingLicences.Any())
             {
-                logger.LogDebug("All licences are allowed.");
+                logger.LogDebug("No forbidden licences found.");
 
                 return;
             }

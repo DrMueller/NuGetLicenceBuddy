@@ -18,7 +18,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
         IMarkdownTableFactory markdownTableFactory,
         IOutputWriter outputWriter,
         ILoggingService logger,
-        IHtmlTableFactory htmlFactoryFactory,
         IAllowedLicencesChecker licencesChecker)
         : IOrchestrator
     {
@@ -37,11 +36,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
         {
             await nugetLicences
                 .Map(markdownTableFactory.CreateTable)
+                .Tap(logger.LogInfo)
                 .TapAsync(outputWriter.WriteToFileAsync);
-
-            nugetLicences
-                .Map(htmlFactoryFactory.CreateTable)
-                .Tap(logger.LogInfo);
         }
     }
 }
