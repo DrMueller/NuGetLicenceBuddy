@@ -2,7 +2,7 @@
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
-using Mmu.NuGetLicenceBuddy.Infrastructure.Logging;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants.Implementation
 {

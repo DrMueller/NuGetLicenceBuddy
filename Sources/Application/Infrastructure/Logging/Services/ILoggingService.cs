@@ -1,4 +1,4 @@
-﻿namespace Mmu.NuGetLicenceBuddy.Infrastructure.Logging
+﻿namespace Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services
 {
     public interface ILoggingService
     {

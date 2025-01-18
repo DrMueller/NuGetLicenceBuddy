@@ -12,12 +12,15 @@
 
   <ItemGroup>
     <Compile Remove="Areas\NugetDependencies\ByAssetsJson\**" />
+    <Compile Remove="Infrastructure\Logging\NewFolder\**" />
     <Compile Remove="Infrastructure\Options\NewFolder\**" />
     <Compile Remove="Areas\Orchestration\NewFolder\**" />
     <EmbeddedResource Remove="Areas\NugetDependencies\ByAssetsJson\**" />
+    <EmbeddedResource Remove="Infrastructure\Logging\NewFolder\**" />
     <EmbeddedResource Remove="Infrastructure\Options\NewFolder\**" />
     <EmbeddedResource Remove="Areas\Orchestration\NewFolder\**" />
     <None Remove="Areas\NugetDependencies\ByAssetsJson\**" />
+    <None Remove="Infrastructure\Logging\NewFolder\**" />
     <None Remove="Infrastructure\Options\NewFolder\**" />
     <None Remove="Areas\Orchestration\NewFolder\**" />
   </ItemGroup>
@@ -30,6 +33,7 @@
     <PackageReference Include="NuGet.Frameworks" Version="6.12.1" />
     <PackageReference Include="NuGet.Protocol" Version="6.12.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="System.IO.Abstractions" Version="21.2.1" />
   </ItemGroup>
 
 </Project>
