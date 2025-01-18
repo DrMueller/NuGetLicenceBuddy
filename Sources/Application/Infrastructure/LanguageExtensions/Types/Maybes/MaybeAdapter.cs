@@ -38,6 +38,56 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
 
         public static async Task<Maybe<TNew>> MapAsync<T, TNew>(
             this Task<Maybe<T>> maybeTask,
+            Func<T, Task<TNew>> map)
+        {
+            var maybe = await maybeTask;
+
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+
+            return await map(someValue);
+        }
+
+        public static async Task<Maybe<T>> TapAsync<T>(
+            this Task<Maybe<T>> maybeTask,
+            Func<T, Task> tap)
+        {
+            var maybe = await maybeTask;
+
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+            await tap(someValue);
+
+            return maybe;
+        }
+
+        public static async Task<Maybe<T>> TapAsync<T>(
+            this Task<Maybe<T>> maybeTask,
+            Action<T> tap)
+        {
+            var maybe = await maybeTask;
+
+            if (maybe is None<T>)
+            {
+                return None.Value;
+            }
+
+            var someValue = (Some<T>)maybe;
+            tap(someValue);
+
+            return maybe;
+        }
+
+        public static async Task<Maybe<TNew>> MapAsync<T, TNew>(
+            this Task<Maybe<T>> maybeTask,
             Func<T, TNew> map)
         {
             var maybe = await maybeTask;

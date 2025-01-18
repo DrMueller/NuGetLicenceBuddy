@@ -1,14 +1,47 @@
 ﻿using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Servants;
+using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
+using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
 using Newtonsoft.Json.Linq;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Implementation
 {
     [UsedImplicitly]
-    public class DependencyGraphFactory(ITransitiveDependencyFactory transitiveDepFactory) : IDependencyGraphFactory
+    public class PackageIdentifierFactory(
+        ILoggingService logger,
+        ITransitiveDependencyFactory transitiveDepFactory) : IPackageIdentifierFactory
     {
-        public async Task<DependencyGraph> CreateFromJsonAsync(string json)
+        public async Task<Maybe<IReadOnlyCollection<PackageIdentifier>>> TryCreatingAsync(
+            string sourcePath,
+            bool includeTransitiveDependencies)
+        {
+            return await TryGettingAssetsJsonContentAsync(sourcePath)
+                .MapAsync(CreateInternalAsync)
+                .MapAsync(graph => MapIdentifiers(graph, includeTransitiveDependencies));
+        }
+
+        private static IReadOnlyCollection<PackageIdentifier> MapIdentifiers(
+            DependencyGraph graph,
+            bool includeTransitive)
+        {
+            var packages = graph.Packages.Select(f => f.Identifier).ToList();
+
+            if (includeTransitive)
+            {
+                var transitiveDeps = graph.Packages.SelectMany(f => f.TransitiveDependencies)
+                    .Select(f => f.PackageIdentifier);
+
+                packages.AddRange(transitiveDeps);
+            }
+
+            return packages
+                .Distinct()
+                .ToList();
+        }
+
+        private async Task<DependencyGraph> CreateInternalAsync(string json)
         {
             var root = JObject.Parse(json);
             var target = root.Properties().Single(f => f.Name == "targets")
@@ -65,6 +98,27 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services.Implementation
             }
 
             return new DependencyGraph(target.Name, plainNugetList);
+        }
+
+        private async Task<Maybe<string>> TryGettingAssetsJsonContentAsync(string sourceFilePath)
+        {
+            var replacedSourcesPath = sourceFilePath.Replace(@"\", @"\\");
+            var assetsJsonPath = Directory
+                .GetFiles(
+                    replacedSourcesPath,
+                    "project.assets.json",
+                    SearchOption.AllDirectories).FirstOrDefault();
+
+            if (string.IsNullOrWhiteSpace(assetsJsonPath))
+            {
+                logger.LogError("project.assets.json file not found. Cancelling..");
+
+                return None.Value;
+            }
+
+            var content = await File.ReadAllTextAsync(assetsJsonPath);
+
+            return content;
         }
     }
 }
