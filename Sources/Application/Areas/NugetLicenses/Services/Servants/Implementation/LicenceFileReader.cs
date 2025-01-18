@@ -51,11 +51,13 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services.Servants.Implementa
             try
             {
                 var licenseContent = await client.GetStringAsync(licenceUrl);
+
                 return licenseContent;
             }
             catch (Exception ex)
             {
                 logger.LogError($"Could not download from {licenceUrl}. Error: {ex.Message}.");
+
                 return None.Value;
             }
         }

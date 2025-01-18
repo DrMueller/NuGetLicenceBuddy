@@ -1,7 +1,7 @@
 ﻿using CommandLine;
 using JetBrains.Annotations;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.Options.Models
+namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models
 {
     [PublicAPI]
     public class ToolOptions

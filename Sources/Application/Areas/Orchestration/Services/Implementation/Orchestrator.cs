@@ -2,9 +2,9 @@
 using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models;
 using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services;
 using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services;
-using Mmu.NuGetLicenceBuddy.Areas.Options.Models;
 using Mmu.NuGetLicenceBuddy.Areas.Outputs.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
 {
@@ -28,6 +28,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
             if (string.IsNullOrWhiteSpace(assetsJsonPath))
             {
                 logger.LogError("project.assets.json file not found. Cancelling..");
+
                 return;
             }
 
@@ -44,6 +45,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
         private static IReadOnlyCollection<PackageIdentifier> Map(DependencyGraph graph, bool includeTransitive)
         {
             var packages = graph.Packages.Select(f => f.Identifier).ToList();
+
             if (includeTransitive)
             {
                 var transitiveDeps = graph.Packages.SelectMany(f => f.TransitiveDependencies)

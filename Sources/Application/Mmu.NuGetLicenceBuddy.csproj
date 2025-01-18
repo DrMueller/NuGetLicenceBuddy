@@ -12,13 +12,13 @@
 
   <ItemGroup>
     <Compile Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-    <Compile Remove="Areas\Options\NewFolder\**" />
+    <Compile Remove="Infrastructure\Options\NewFolder\**" />
     <Compile Remove="Areas\Orchestration\NewFolder\**" />
     <EmbeddedResource Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-    <EmbeddedResource Remove="Areas\Options\NewFolder\**" />
+    <EmbeddedResource Remove="Infrastructure\Options\NewFolder\**" />
     <EmbeddedResource Remove="Areas\Orchestration\NewFolder\**" />
     <None Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-    <None Remove="Areas\Options\NewFolder\**" />
+    <None Remove="Infrastructure\Options\NewFolder\**" />
     <None Remove="Areas\Orchestration\NewFolder\**" />
   </ItemGroup>
 

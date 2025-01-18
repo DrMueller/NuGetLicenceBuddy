@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
-using Mmu.NuGetLicenceBuddy.Areas.Options.Services;
 using Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.DependencyInjection;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services;
 
 namespace Mmu.NuGetLicenceBuddy
 {

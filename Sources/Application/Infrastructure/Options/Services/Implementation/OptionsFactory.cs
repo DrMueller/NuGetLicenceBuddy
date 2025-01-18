@@ -1,11 +1,11 @@
 ﻿using CommandLine;
 using JetBrains.Annotations;
-using Mmu.NuGetLicenceBuddy.Areas.Options.Models;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
 
-namespace Mmu.NuGetLicenceBuddy.Areas.Options.Services.Implementation
+namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
 {
     [UsedImplicitly]
     public class OptionsFactory(ILoggingService logger) : IOptionsFactory
@@ -18,10 +18,12 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Options.Services.Implementation
             {
                 var errorMessages = string.Join(Environment.NewLine, result.Errors.Select(f => f.ToString()));
                 logger.LogError("Could not parse options: " + errorMessages);
+
                 return None.Value;
             }
 
             LogOptions(result.Value);
+
             return result.Value;
         }
 

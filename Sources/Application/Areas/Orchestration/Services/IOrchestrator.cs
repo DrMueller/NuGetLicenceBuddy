@@ -1,4 +1,4 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.Options.Models;
+﻿using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services
 {

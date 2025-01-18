@@ -6,6 +6,10 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models
     [PublicAPI]
     public class NugetPackage
     {
+        public IReadOnlyCollection<NugetPackage> DependsOn { get; private set; }
+        public PackageIdentifier Identifier { get; }
+        public IReadOnlyCollection<TransitiveDependency> TransitiveDependencies { get; }
+
         public NugetPackage(
             PackageIdentifier identifier,
             IReadOnlyCollection<TransitiveDependency> transitiveDependencies)
@@ -17,10 +21,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Models
             Identifier = identifier;
             TransitiveDependencies = transitiveDependencies;
         }
-
-        public IReadOnlyCollection<NugetPackage> DependsOn { get; private set; }
-        public PackageIdentifier Identifier { get; }
-        public IReadOnlyCollection<TransitiveDependency> TransitiveDependencies { get; }
 
         internal void UpdateDependsOn(IReadOnlyCollection<NugetPackage> dependsOn)
         {

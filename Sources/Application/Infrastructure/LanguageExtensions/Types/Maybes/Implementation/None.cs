@@ -8,11 +8,11 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.I
         Justification = "Helper to avoid generic parsing")]
     public class None
     {
+        public static None Value { get; } = new();
+
         private None()
         {
         }
-
-        public static None Value { get; } = new();
     }
 
     [SuppressMessage(
