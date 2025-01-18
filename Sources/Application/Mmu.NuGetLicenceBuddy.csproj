@@ -13,7 +13,7 @@
 		<Authors>DrMueller</Authors>
 		<Description>DrMuellers little NuGet Licence Buddy</Description>
 		<PackageProjectUrl>https://github.com/DrMueller/NuGetLicenceBuddy</PackageProjectUrl>
-		<PackageIconUrl>https://raw.githubusercontent.com/DrMueller/NuGetLicenceBuddy/master/Sources/Application/Infrastructure/Assets/M.png</PackageIconUrl>
+		<PackageIcon>https://raw.githubusercontent.com/DrMueller/NuGetLicenceBuddy/master/Sources/Application/Infrastructure/Assets/M.png</PackageIcon>
 		<RepositoryUrl>https://github.com/DrMueller/NuGetLicenceBuddy</RepositoryUrl>
 		<RepositoryType></RepositoryType>
 		<PackageLicenseUrl></PackageLicenseUrl>
@@ -21,8 +21,7 @@
 		<FileVersion Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</FileVersion>
 		<Version Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
 		<AssemblyVersion Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</AssemblyVersion>
-		<FileVersion Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</FileVersion>
-		<Version Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</Version>
+		<PackageId>NuGetLicenceBuddy</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
