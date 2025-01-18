@@ -13,6 +13,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
             Func<T, Maybe<TNew>> map)
         {
             var maybe = await maybeTask;
+
             if (maybe is None<T>)
             {
                 return None.Value;
@@ -40,6 +41,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes
             Func<T, TNew> map)
         {
             var maybe = await maybeTask;
+
             if (maybe is None<T>)
             {
                 return None.Value;

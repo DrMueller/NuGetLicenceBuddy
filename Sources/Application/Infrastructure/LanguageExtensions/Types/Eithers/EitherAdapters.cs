@@ -19,6 +19,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Eithers
 
             var right = (Right<TLeft, TRight>)either;
             var mappedRight = map(right);
+
             return mappedRight;
         }
 
