@@ -12,19 +12,19 @@ namespace Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models
         private static readonly IReadOnlyCollection<Licence> _allLicences = new List<Licence>
         {
             Apache2,
-            GPL2,
-            MIT,
-            MSPL,
-            MSEULA,
-            MSEULANoRedistributable
+            Glp2,
+            Mit,
+            MsPl,
+            MsEula,
+            MsEulaNoRedistributable
         };
 
         public static Licence Apache2 => new("Apache-2.0", "Apache 2", "apache license");
-        public static Licence GPL2 => new("GPL2-2.0", "GPL2 2.0", "gpl");
-        public static Licence MIT => new("MIT", "MIT", "mit license");
-        public static Licence MSEULA => new("MS-EULA", "MS EULA", "todo");
-        public static Licence MSEULANoRedistributable => new("MS-EULA-Non-Redistributable", "MS-EULA Non Redistributable", "todo");
-        public static Licence MSPL => new("MS-PL", "MS PL", "todo");
+        public static Licence Glp2 => new("Glp2-2.0", "Glp2 2.0", "gpl");
+        public static Licence Mit => new("Mit", "Mit", "mit license");
+        public static Licence MsEula => new("MS-EULA", "MS EULA", "todo");
+        public static Licence MsEulaNoRedistributable => new("MS-EULA-Non-Redistributable", "MS-EULA Non Redistributable", "todo");
+        public static Licence MsPl => new("MS-PL", "MS PL", "todo");
         public static Licence None => new("None", "None", "None");
 
         public string Name { get; } = name;
