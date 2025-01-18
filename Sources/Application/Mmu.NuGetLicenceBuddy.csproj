@@ -1,39 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  <PackAsTool>true</PackAsTool>
-  <ToolCommandName>nugetlicencebuddy</ToolCommandName>
-  <PackageOutputPath>./nupkg</PackageOutputPath>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>nugetlicencebuddy</ToolCommandName>
+		<PackageOutputPath>./nupkg</PackageOutputPath>
+		<Company>DrMueller</Company>
+		<Product>NuGetLicenceBuddy</Product>
+		<Authors>DrMueller</Authors>
+		<Description>DrMuellers little NuGet Licence Buddy</Description>
+		<PackageProjectUrl>https://github.com/DrMueller/NuGetLicenceBuddy</PackageProjectUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/DrMueller/NuGetLicenceBuddy/master/Sources/Application/Infrastructure/Assets/M.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/DrMueller/NuGetLicenceBuddy</RepositoryUrl>
+		<RepositoryType></RepositoryType>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<AssemblyVersion Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</AssemblyVersion>
+		<FileVersion Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</FileVersion>
+		<Version Condition="'$(BUILD_BUILDNUMBER)' != '' ">$(BUILD_BUILDNUMBER)</Version>
+		<AssemblyVersion Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</AssemblyVersion>
+		<FileVersion Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</FileVersion>
+		<Version Condition="'$(BUILD_BUILDNUMBER)' == '' ">1.0.0.0</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-    <Compile Remove="Infrastructure\Logging\NewFolder\**" />
-    <Compile Remove="Infrastructure\Options\NewFolder\**" />
-    <Compile Remove="Areas\Orchestration\NewFolder\**" />
-    <EmbeddedResource Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-    <EmbeddedResource Remove="Infrastructure\Logging\NewFolder\**" />
-    <EmbeddedResource Remove="Infrastructure\Options\NewFolder\**" />
-    <EmbeddedResource Remove="Areas\Orchestration\NewFolder\**" />
-    <None Remove="Areas\NugetDependencies\ByAssetsJson\**" />
-    <None Remove="Infrastructure\Logging\NewFolder\**" />
-    <None Remove="Infrastructure\Options\NewFolder\**" />
-    <None Remove="Areas\Orchestration\NewFolder\**" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Areas\NugetDependencies\ByAssetsJson\**" />
+		<Compile Remove="Infrastructure\Logging\NewFolder\**" />
+		<Compile Remove="Infrastructure\Options\NewFolder\**" />
+		<Compile Remove="Areas\Orchestration\NewFolder\**" />
+		<EmbeddedResource Remove="Areas\NugetDependencies\ByAssetsJson\**" />
+		<EmbeddedResource Remove="Infrastructure\Logging\NewFolder\**" />
+		<EmbeddedResource Remove="Infrastructure\Options\NewFolder\**" />
+		<EmbeddedResource Remove="Areas\Orchestration\NewFolder\**" />
+		<None Remove="Areas\NugetDependencies\ByAssetsJson\**" />
+		<None Remove="Infrastructure\Logging\NewFolder\**" />
+		<None Remove="Infrastructure\Options\NewFolder\**" />
+		<None Remove="Areas\Orchestration\NewFolder\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.9.1" />
-    <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
-    <PackageReference Include="Lamar" Version="14.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NuGet.Frameworks" Version="6.12.1" />
-    <PackageReference Include="NuGet.Protocol" Version="6.12.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
-    <PackageReference Include="System.IO.Abstractions" Version="21.2.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommandLineParser" Version="2.9.1" />
+		<PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+		<PackageReference Include="Lamar" Version="14.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="NuGet.Frameworks" Version="6.12.1" />
+		<PackageReference Include="NuGet.Protocol" Version="6.12.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+		<PackageReference Include="System.IO.Abstractions" Version="21.2.1" />
+	</ItemGroup>
 
 </Project>
