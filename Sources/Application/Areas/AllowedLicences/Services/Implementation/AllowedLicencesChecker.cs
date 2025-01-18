@@ -4,24 +4,15 @@ using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 {
-    public class AllowedLicencesChecker : IAllowedLicencesChecker
+    public class AllowedLicencesChecker(
+        ILoggingService logger,
+        ITaskFailer taskFailer) : IAllowedLicencesChecker
     {
-        private readonly ILoggingService _logger;
-        private readonly ITaskFailer _taskFailer;
-
-        public AllowedLicencesChecker(
-            ILoggingService logger,
-            ITaskFailer taskFailer)
-        {
-            _logger = logger;
-            _taskFailer = taskFailer;
-        }
-
         public void CheckLicences(IReadOnlyCollection<NugetLicence> licences, string allowedLicences)
         {
             if (string.IsNullOrEmpty(allowedLicences))
             {
-                _logger.LogDebug("No allowed licences defined, skipping check.");
+                logger.LogDebug("No allowed licences defined, skipping check.");
 
                 return;
             }
@@ -43,14 +34,14 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 
             if (!failingLicences.Any())
             {
-                _logger.LogDebug("All licences are allowed.");
+                logger.LogDebug("All licences are allowed.");
 
                 return;
             }
 
             var failingLicencesText = string.Join(", ", failingLicences);
-            _logger.LogError("The following licences are not allowed: " + failingLicencesText);
-            _taskFailer.FailTask();
+            logger.LogError("The following licences are not allowed: " + failingLicencesText);
+            taskFailer.FailTask();
         }
     }
 }
