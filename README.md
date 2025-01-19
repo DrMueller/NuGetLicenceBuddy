@@ -28,6 +28,6 @@ Usage: nugetlicencebuddy [options]
 
 | Option | Description |
 | ------ | ------------------------- |
-|`-s\|--sources-path <INPUT_PATH>`|Include transitive package licences.|
-|`-i\|--include-transitive`|Source path to search for the project.assets.json file.|
-|`-a\|--allowed-licences <ALLOWED_LICENSES>`|Comma-seperated list for allowed licences, for example 'mit,apache-2'. If none is provided, all licences are allowed.|
+| `-a|--allowed-licences` | Comma-seperated list, for example 'mit,apache-2'. If none is provided, all licences are allowed. |
+| `-i|--include-transitive` | Include distinct transitive package licenses. |
+| `-s|--sources-path` | Source path to search the 'project.assets.json' in. |r example 'mit,apache-2'. If none is provided, all licences are allowed.|

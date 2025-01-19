@@ -4,11 +4,14 @@ using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Servants;
 
 namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
 {
     [UsedImplicitly]
-    public class OptionsFactory(ILoggingService logger) : IOptionsFactory
+    public class OptionsFactory(
+        ILoggingService logger,
+        IOptionsMarkdownTableFactory tableFactory) : IOptionsFactory
     {
         public Maybe<ToolOptions> TryCreating(string[] args)
         {
@@ -22,6 +25,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
                 return None.Value;
             }
 
+            tableFactory.CreateTable();
             LogOptions(result.Value);
 
             return result.Value;
