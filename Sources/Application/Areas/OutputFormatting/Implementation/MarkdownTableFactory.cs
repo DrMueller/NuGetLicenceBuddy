@@ -10,7 +10,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting.Implementation
         public string CreateTable(IReadOnlyCollection<NugetLicence> licences)
         {
             var sb = new StringBuilder();
-            sb.Append("```md");
+            sb.AppendLine("```md");
 
             sb.AppendLine("|NuGet Name|NuGet Version|Licence Name|License URL|");
             sb.AppendLine("|-----------------|-----------------|-----------------|-------------------|");
