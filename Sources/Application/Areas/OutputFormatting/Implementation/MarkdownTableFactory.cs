@@ -1,6 +1,6 @@
-﻿using System.Text;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
+using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting.Implementation
 {
@@ -9,20 +9,16 @@ namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting.Implementation
     {
         public string CreateTable(IReadOnlyCollection<NugetLicence> licences)
         {
-            var sb = new StringBuilder();
-            sb.AppendLine("```md");
+            var table = licences
+                .Select(f => new
+                {
+                    NugetName = f.NugetIdentifier,
+                    f.NugetVersion,
+                    LicenceName = f.Licence.Name,
+                    LicenceUrl = f.NugetLicenceUrl
+                }).ToList();
 
-            sb.AppendLine("|NuGet Name|NuGet Version|Licence Name|License URL|");
-            sb.AppendLine("|-----------------|-----------------|-----------------|-------------------|");
-
-            foreach (var licence in licences)
-            {
-                sb.AppendLine($"|{licence.NugetIdentifier}|{licence.NugetVersion}|{licence.Licence.Name}|{licence.NugetLicenceUrl}|");
-            }
-
-            sb.Append("```");
-
-            return sb.ToString();
+            return table.ToMarkdownTable();
         }
     }
 }
