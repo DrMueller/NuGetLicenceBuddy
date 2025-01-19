@@ -23,7 +23,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Servants.Impleme
 
             foreach (var attr in optionsAttributes)
             {
-                var name = $"`-{attr.ShortName}|--{attr.LongName}`";
+                var name = $"`-{attr.ShortName}\\|--{attr.LongName}`";
                 sb.AppendLine($"| {name} | {attr.HelpText} |");
             }
 
