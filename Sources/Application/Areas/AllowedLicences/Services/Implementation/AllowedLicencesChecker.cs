@@ -1,6 +1,6 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
-using Mmu.NuGetLicenceBuddy.Areas.Outputs.Services;
+﻿using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Outputs.Services;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 {
@@ -18,19 +18,24 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
             }
 
             var allowedLicencesList = allowedLicences
+                .Replace("'", string.Empty)
                 .Split([','], StringSplitOptions.RemoveEmptyEntries)
                 .Select(f => f.ToLower().ToUpper())
                 .ToList();
 
-            var foundLicenceIds =
-                licences
-                    .Select(f => f.Licence.Identifier)
-                    .Select(f => f.ToUpper())
-                    .Distinct();
+            var foundLicenceIds = licences
+                .Select(f => f.Licence.Identifier)
+                .Select(f => f.ToUpper())
+                .Distinct()
+                .ToList();
 
             var failingLicences = foundLicenceIds
                 .Where(f => !allowedLicencesList.Contains(f))
                 .ToList();
+
+            logger.LogDebug($"Allowed licences: {string.Join(", ", allowedLicencesList)}");
+            logger.LogDebug($"Found licences: {string.Join(", ", foundLicenceIds)}");
+            logger.LogDebug($"Failing licences: {string.Join(", ", failingLicences)}");
 
             if (!failingLicences.Any())
             {

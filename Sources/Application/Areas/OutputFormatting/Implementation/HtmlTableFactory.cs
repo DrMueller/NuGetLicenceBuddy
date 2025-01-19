@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
+using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting.Implementation
 {
@@ -17,8 +17,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting.Implementation
         {
             var sb = new StringBuilder();
             sb.AppendLine("<table border='1' style='border-collapse:collapse; width:100%;'>");
-
-            // Add table headers
             sb.AppendLine("<thead><tr>");
 
             foreach (var header in _headers)
@@ -27,8 +25,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting.Implementation
             }
 
             sb.AppendLine("</tr></thead>");
-
-            // Add table rows
             sb.AppendLine("<tbody>");
 
             foreach (var lic in licences)

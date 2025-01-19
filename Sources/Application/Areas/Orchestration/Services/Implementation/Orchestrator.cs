@@ -1,20 +1,20 @@
 ﻿using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services;
-using Mmu.NuGetLicenceBuddy.Areas.NugetDependencies.Services;
-using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
-using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Services;
+using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
+using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services;
 using Mmu.NuGetLicenceBuddy.Areas.OutputFormatting;
-using Mmu.NuGetLicenceBuddy.Areas.Outputs.Services;
+using Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Outputs.Services;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
 {
     [UsedImplicitly]
     public class Orchestrator(
-        INugetLicenceFactory licenceFactory,
-        IPackageIdentifierFactory dependecyGraphFactory,
+        INugetLicencesFetcher licencesFetcher,
+        IPackageReader packageReader,
         IMarkdownTableFactory markdownTableFactory,
         IOutputWriter outputWriter,
         ILoggingService logger,
@@ -23,9 +23,9 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
     {
         public async Task OrchestrateAsync(ToolOptions options)
         {
-            var nugetLicences = await dependecyGraphFactory
-                .TryCreatingAsync(options.SourcesPath, options.IncludeTransitiveDependencies)
-                .MapAsync(licenceFactory.CreateAllAsync);
+            var nugetLicences = await packageReader
+                .TryReadingAsync(options.SourcesPath, options.IncludeTransitiveDependencies)
+                .MapAsync(licencesFetcher.FetchAsync);
 
             await CreateOutputAsync(nugetLicences);
 

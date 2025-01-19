@@ -1,4 +1,4 @@
-﻿using Mmu.NuGetLicenceBuddy.Areas.NugetLicenses.Models;
+﻿using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.OutputFormatting
 {

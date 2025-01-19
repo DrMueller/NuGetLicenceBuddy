@@ -1,7 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using System.IO.Abstractions;
+using JetBrains.Annotations;
 using Lamar;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO.Abstractions;
 
 namespace Mmu.NuGetLicenceBuddy.Infrastructure.DependencyInjection
 {
