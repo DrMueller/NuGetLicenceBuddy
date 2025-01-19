@@ -17,7 +17,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Implementation
         public async Task<IReadOnlyCollection<NugetLicence>> FetchAsync(IReadOnlyCollection<PackageIdentifier> packages)
         {
             var result = new List<NugetLicence>();
-
             var nuspecReaders = await nuspecReaderFactory.CreateAllAsync(packages);
 
             foreach (var nuspecReader in nuspecReaders)
