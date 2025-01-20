@@ -1,5 +1,13 @@
 {
   "version": 1,
   "isRoot": true,
-  "tools": {}
+  "tools": {
+    "nugetlicencebuddy": {
+      "version": "1.0.31",
+      "commands": [
+        "nugetlicencebuddy"
+      ],
+      "rollForward": false
+    }
+  }
 }

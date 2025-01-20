@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 using CommandLine;
+using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
 
 namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Servants.Implementation
@@ -21,13 +22,15 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Servants.Impleme
             sb.AppendLine("| Option | Description |");
             sb.AppendLine("| ------ | ------------------------- |");
 
-            foreach (var attr in optionsAttributes)
+            var markDownItems = optionsAttributes.Select(attr => new
             {
-                var name = $"`-{attr.ShortName}\\|--{attr.LongName}`";
-                sb.AppendLine($"| {name} | {attr.HelpText} |");
-            }
+                Option = $"`-{attr.ShortName}\\|--{attr.LongName}`",
+                Description = attr.HelpText
+            }).ToList();
 
-            Debug.WriteLine(sb.ToString());
+            var markdownTable = markDownItems.ToMarkdownTable();
+
+            Debug.WriteLine(markdownTable);
         }
     }
 }
