@@ -1,6 +1,8 @@
 ﻿namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Models
 {
-    public record PackageIdentifier(string PackageName, string Version)
+    public record PackageIdentifier(
+        string PackageName,
+        string Version)
     {
         public static PackageIdentifier Parse(string value)
         {

@@ -5,6 +5,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services
 {
     public interface INugetLicencesFetcher
     {
-        Task<IReadOnlyCollection<NugetLicence>> FetchAsync(IReadOnlyCollection<PackageIdentifier> packages);
+        Task<IReadOnlyCollection<NugetLicence>> FetchAsync(IReadOnlyCollection<NugetPackage> packages);
     }
 }

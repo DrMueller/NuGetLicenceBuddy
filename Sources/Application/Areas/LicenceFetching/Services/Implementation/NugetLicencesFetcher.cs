@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.IO.Abstractions;
+using JetBrains.Annotations;
 using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
 using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Servants;
 using Mmu.NuGetLicenceBuddy.Areas.PackageReading.Models;
@@ -11,19 +12,20 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Implementation
     public class NugetLicencesFetcher(
         ILicenceFileReader fileReader,
         ILoggingService logger,
-        INuspecReaderFactory nuspecReaderFactory)
+        INuspecReaderFactory nuspecReaderFactory,
+        IFileSystem fileSystem)
         : INugetLicencesFetcher
     {
-        public async Task<IReadOnlyCollection<NugetLicence>> FetchAsync(IReadOnlyCollection<PackageIdentifier> packages)
+        public async Task<IReadOnlyCollection<NugetLicence>> FetchAsync(IReadOnlyCollection<NugetPackage> packages)
         {
             var result = new List<NugetLicence>();
             var nuspecReaders = await nuspecReaderFactory.CreateAllAsync(packages);
 
-            foreach (var nuspecReader in nuspecReaders)
+            foreach (var nuspec in nuspecReaders)
             {
-                var nuspecIdentity = nuspecReader.GetIdentity();
-                var nuspecVersion = nuspecReader.GetVersion();
-                var licenceUrl = nuspecReader.GetLicenseUrl();
+                var nuspecIdentity = nuspec.Reader.GetIdentity();
+                var nuspecVersion = nuspec.Reader.GetVersion();
+                var licenceUrl = nuspec.Reader.GetLicenseUrl();
                 logger.LogDebug($"Getting licence for package {nuspecIdentity.Id}..");
 
                 var licence = await fileReader
@@ -34,6 +36,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Implementation
                     nuspecIdentity.Id,
                     nuspecVersion.ToFullString(),
                     licenceUrl,
+                    fileSystem.Path.GetFileNameWithoutExtension(nuspec.Package.DllName),
                     licence));
             }
 

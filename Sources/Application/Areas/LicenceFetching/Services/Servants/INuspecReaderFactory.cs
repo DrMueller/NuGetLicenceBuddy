@@ -5,6 +5,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Servants
 {
     public interface INuspecReaderFactory
     {
-        Task<IReadOnlyCollection<NuspecReader>> CreateAllAsync(IReadOnlyCollection<PackageIdentifier> packages);
+        Task<IReadOnlyCollection<(NugetPackage Package, NuspecReader Reader)>> CreateAllAsync(IReadOnlyCollection<NugetPackage> packages);
     }
 }

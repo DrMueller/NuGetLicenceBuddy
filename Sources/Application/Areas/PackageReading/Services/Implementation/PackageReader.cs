@@ -13,32 +13,17 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Implementation
         ILoggingService logger,
         ITransitiveDependencyFactory transitiveDepFactory) : IPackageReader
     {
-        public async Task<Maybe<IReadOnlyCollection<PackageIdentifier>>> TryReadingAsync(
+        public async Task<Maybe<NugetPackages>> TryReadingAsync(
             string sourcePath,
-            bool includeTransitiveDependencies)
+            bool includeTransitiveDependencies,
+            string? excludePackagesFilterOption)
         {
             return await TryGettingAssetsJsonContentAsync(sourcePath)
                 .MapAsync(CreateInternalAsync)
-                .MapAsync(graph => MapIdentifiers(graph, includeTransitiveDependencies));
-        }
-
-        private static IReadOnlyCollection<PackageIdentifier> MapIdentifiers(
-            DependencyGraph graph,
-            bool includeTransitive)
-        {
-            var packages = graph.Packages.Select(f => f.Identifier).ToList();
-
-            if (includeTransitive)
-            {
-                var transitiveDeps = graph.Packages.SelectMany(f => f.TransitiveDependencies)
-                    .Select(f => f.PackageIdentifier);
-
-                packages.AddRange(transitiveDeps);
-            }
-
-            return packages
-                .Distinct()
-                .ToList();
+                .MapAsync(f => new NugetPackages(
+                    f.Packages,
+                    includeTransitiveDependencies,
+                    excludePackagesFilterOption));
         }
 
         private async Task<DependencyGraph> CreateInternalAsync(string json)
@@ -77,9 +62,16 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Implementation
 
                 var transitiveDeps = await transitiveDepFactory.CreateAsync(target.Name, new NugetIdentifier(dep.Name));
 
+                var compileToken = (JProperty)dep.Value
+                    .SelectToken("compile")!
+                    .First!;
+
+                var dllName = compileToken.Name.Split('/').Last();
+
                 var nuget = new NugetPackage(
                     PackageIdentifier.Parse(dep.Name),
-                    transitiveDeps);
+                    transitiveDeps,
+                    dllName);
 
                 allNugets.Add((nuget, dependencyPackages));
             }

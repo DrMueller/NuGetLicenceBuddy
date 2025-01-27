@@ -29,7 +29,6 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Servants.Impleme
             }).ToList();
 
             var markdownTable = markDownItems.ToMarkdownTable();
-
             Debug.WriteLine(markdownTable);
         }
     }

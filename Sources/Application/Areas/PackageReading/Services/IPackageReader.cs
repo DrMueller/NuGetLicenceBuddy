@@ -5,8 +5,9 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services
 {
     public interface IPackageReader
     {
-        Task<Maybe<IReadOnlyCollection<PackageIdentifier>>> TryReadingAsync(
+        Task<Maybe<NugetPackages>> TryReadingAsync(
             string sourcePath,
-            bool includeTransitiveDependencies);
+            bool includeTransitiveDependencies,
+            string? excludePackagesFilterOption);
     }
 }

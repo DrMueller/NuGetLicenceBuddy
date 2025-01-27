@@ -26,8 +26,11 @@ steps:
 
 Usage: nugetlicencebuddy [options]
 
-| Option                     | Description                                                                                      |
-| -------------------------- | ------------------------------------------------------------------------------------------------ |
-| `-a\|--allowed-licences`   | Comma-seperated list, for example 'mit,apache-2'. If none is provided, all licences are allowed. |
-| `-i\|--include-transitive` | Include distinct transitive package licenses.                                                    |
-| `-s\|--sources-path`       | Source path to search the 'project.assets.json' in.                                              |
+Option                           | Description                                                                                     
+-------------------------------- | ------------------------------------------------------------------------------------------------
+`-a\|--allowed-licences`         | Comma-seperated list, for example 'mit,apache-2'. If none is provided, all licences are allowed.
+`-e\|--exclude-packages-filter` | RegEx to exclude packages from analyzing. Example: '.*(Microsoft|System).*'                    
+`-i\|--include-transitive`       | Include distinct transitive package licenses.                                                   
+`-m\|--match-output-version`     | If true, only the versions in the output folders are used. Required output-path option.         
+`-o\|--output-path`              | Path of the produced artifacts.                                                                 
+`-s\|--sources-path`             | Source path to search the 'project.assets.json' in.

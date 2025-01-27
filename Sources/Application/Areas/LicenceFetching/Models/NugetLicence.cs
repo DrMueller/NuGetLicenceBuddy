@@ -4,5 +4,6 @@
         string NugetIdentifier,
         string NugetVersion,
         string NugetLicenceUrl,
+        string NugetDllName,
         Licence Licence);
 }

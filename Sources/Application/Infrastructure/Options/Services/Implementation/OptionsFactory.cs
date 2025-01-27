@@ -28,13 +28,30 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
             tableFactory.CreateTable();
             LogOptions(result.Value);
 
-            return result.Value;
+            return ValidateOptions(result.Value);
         }
 
         private void LogOptions(ToolOptions options)
         {
             logger.LogDebug("SourcesPath: " + options.SourcesPath);
             logger.LogDebug("IncludeTransitiveDependencies: " + options.IncludeTransitiveDependencies);
+            logger.LogDebug("AllowedLicences: " + options.AllowedLicences);
+            logger.LogDebug("ExcludePackagesFilterOption: " + options.ExcludePackagesFilterOption);
+            logger.LogDebug("MatchOutputVersion: " + options.MatchOutputVersion);
+            logger.LogDebug("OutputPath: " + options.OutputPath);
+            logger.LogDebug("SourcesPath: " + options.SourcesPath);
+        }
+
+        private Maybe<ToolOptions> ValidateOptions(ToolOptions options)
+        {
+            if (options.MatchOutputVersion && string.IsNullOrEmpty(options.OutputPath))
+            {
+                logger.LogError("MatchOutputVersion is set, but no OutputPath is provided.");
+
+                return None.Value;
+            }
+
+            return options;
         }
     }
 }
