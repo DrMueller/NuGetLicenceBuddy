@@ -3,6 +3,7 @@ using Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services;
 using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Models;
 using Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services;
 using Mmu.NuGetLicenceBuddy.Areas.OutputFormatting;
+using Mmu.NuGetLicenceBuddy.Areas.OutputReading.Models;
 using Mmu.NuGetLicenceBuddy.Areas.OutputReading.Services;
 using Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
@@ -58,6 +59,14 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
                 .TapAsync(outputWriter.WriteToFileAsync);
         }
 
+        private void DebugDllInfos(IReadOnlyCollection<AssemblyInfo> dllInfos)
+        {
+            foreach (var dllInfo in dllInfos)
+            {
+                logger.LogDebug($"DllInfo: {dllInfo.AssemblyName} - {dllInfo.AssemblyVersion}");
+            }
+        }
+
         private async Task<IReadOnlyCollection<NugetLicence>> FilterByOutputVersionAsync(
             IReadOnlyCollection<NugetLicence> licences,
             bool matchOutputVersion,
@@ -69,7 +78,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
             }
 
             var dllInfos = await assemblyInfoReader.ReadAllAsync(outputPath);
-            logger.LogInfo($"Found {dllInfos.Count} infos from dlls..");
+            logger.LogDebug($"Found {dllInfos.Count} infos from dlls..");
+            DebugDllInfos(dllInfos);
 
             var result = licences
                 .Where(f => dllInfos.Any(info => info.IsMatch(f.NugetDllName, f.NugetVersion)))
