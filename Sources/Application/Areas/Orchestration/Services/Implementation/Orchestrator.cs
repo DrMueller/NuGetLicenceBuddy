@@ -44,7 +44,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
                 logger.LogException(ex);
             }
 
-            logger.LogDebug("Finished..");
+            logger.LogDebug("Finished.");
         }
 
         private async Task CreateOutputAsync(Maybe<IReadOnlyCollection<NugetLicence>> nugetLicences)
