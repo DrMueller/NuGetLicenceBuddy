@@ -9,7 +9,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models
         [Option('a', "allowed-licences", HelpText = "Comma-seperated list, for example 'mit,apache-2'. If none is provided, all licences are allowed.", Required = false)]
         public string AllowedLicences { get; set; } = default!;
 
-        [Option('e', "exclude-packages-filter", Default = null, HelpText = "RegEx to exclude packages from analyzing. Example: '.*(Microsoft|System).*\n'")]
+        [Option('e', "exclude-packages-filter", Default = null, HelpText = "RegEx to exclude packages from analyzing. Must be escaped for Azure DevOps, see https://www.robvanderwoude.com/escapechars.php. Example: '.*(Microsoft^|System).*\n'.")]
         public string? ExcludePackagesFilterOption { get; set; }
 
         [Option('i', "include-transitive", Default = false, HelpText = "Include distinct transitive package licenses.")]
