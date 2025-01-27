@@ -22,6 +22,13 @@ steps:
   displayName: 'Run Licence Buddy'
 ```
 
+## Example configurations
+
+```
+nugetlicencebuddy -i true -s $(Build.SourcesDirectory) -a MIT -e .*(Microsoft^|System).* -o 
+$(Build.SourcesDirectory)\Application\bin\Debug -m true
+```
+
 ## Options
 
 Usage: nugetlicencebuddy [options]
