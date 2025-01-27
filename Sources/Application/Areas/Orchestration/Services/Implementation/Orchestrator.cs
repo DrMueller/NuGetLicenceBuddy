@@ -39,8 +39,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
                 //await CreateOutputAsync(nugetLicences);
 
                 nugetLicences.Tap(lic => licencesChecker.CheckLicences(lic, options.AllowedLicences));
-
-                taskOutputService.SucceedTask();
             }
             catch (Exception ex)
             {

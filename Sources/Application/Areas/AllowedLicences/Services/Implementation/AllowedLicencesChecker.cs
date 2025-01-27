@@ -13,6 +13,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
             if (string.IsNullOrEmpty(allowedLicences))
             {
                 logger.LogDebug("No allowed licences defined, skipping check.");
+                taskOutputService.SucceedTask();
 
                 return;
             }
@@ -40,6 +41,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
             if (!failingLicences.Any())
             {
                 logger.LogDebug("No forbidden licences found.");
+                taskOutputService.SucceedTask();
 
                 return;
             }
