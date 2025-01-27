@@ -5,13 +5,15 @@ using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Imple
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Models;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Servants;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Outputs.Services;
 
 namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
 {
     [UsedImplicitly]
     public class OptionsFactory(
         ILoggingService logger,
-        IOptionsMarkdownTableFactory tableFactory) : IOptionsFactory
+        IOptionsMarkdownTableFactory tableFactory,
+        ITaskOutputService taskOutputService) : IOptionsFactory
     {
         public Maybe<ToolOptions> TryCreating(string[] args)
         {
@@ -21,6 +23,8 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
             {
                 var errorMessages = string.Join(Environment.NewLine, result.Errors.Select(f => f.ToString()));
                 logger.LogError("Could not parse options: " + errorMessages);
+
+                taskOutputService.FailTask();
 
                 return None.Value;
             }
@@ -47,6 +51,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Options.Services.Implementation
             if (options.MatchOutputVersion && string.IsNullOrEmpty(options.OutputPath))
             {
                 logger.LogError("MatchOutputVersion is set, but no OutputPath is provided.");
+                taskOutputService.FailTask();
 
                 return None.Value;
             }
