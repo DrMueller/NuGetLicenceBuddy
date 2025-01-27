@@ -20,7 +20,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
         IOutputWriter outputWriter,
         ILoggingService logger,
         IAllowedLicencesChecker licencesChecker,
-        IAssemblyInfoReader assemblyInfoReader)
+        IAssemblyInfoReader assemblyInfoReader,
+        ITaskOutputService taskOutputService)
         : IOrchestrator
     {
         public async Task OrchestrateAsync(ToolOptions options)
@@ -38,10 +39,13 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
                 //await CreateOutputAsync(nugetLicences);
 
                 nugetLicences.Tap(lic => licencesChecker.CheckLicences(lic, options.AllowedLicences));
+
+                taskOutputService.SucceedTask();
             }
             catch (Exception ex)
             {
                 logger.LogException(ex);
+                taskOutputService.FailTask();
             }
 
             logger.LogDebug("Finished.");

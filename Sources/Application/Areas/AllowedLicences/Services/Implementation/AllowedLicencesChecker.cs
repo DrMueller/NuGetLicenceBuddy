@@ -6,7 +6,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 {
     public class AllowedLicencesChecker(
         ILoggingService logger,
-        ITaskFailer taskFailer) : IAllowedLicencesChecker
+        ITaskOutputService taskOutputService) : IAllowedLicencesChecker
     {
         public void CheckLicences(IReadOnlyCollection<NugetLicence> licences, string allowedLicences)
         {
@@ -46,7 +46,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.AllowedLicences.Services.Implementation
 
             var failingLicencesText = string.Join(", ", failingLicences);
             logger.LogError("The following licences are not allowed: " + failingLicencesText);
-            taskFailer.FailTask();
+            taskOutputService.FailTask();
         }
     }
 }
