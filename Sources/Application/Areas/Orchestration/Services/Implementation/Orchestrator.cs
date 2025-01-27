@@ -25,17 +25,24 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
     {
         public async Task OrchestrateAsync(ToolOptions options)
         {
-            var nugetLicences = await packageReader
-                .TryReadingAsync(options.SourcesPath, options.IncludeTransitiveDependencies, options.ExcludePackagesFilterOption)
-                .MapAsync(packages => licencesFetcher.FetchAsync(packages.FlatPackages))
-                .MapAsync(lic => FilterByOutputVersionAsync(
-                    lic,
-                    options.MatchOutputVersion,
-                    options.OutputPath!));
+            try
+            {
+                var nugetLicences = await packageReader
+                    .TryReadingAsync(options.SourcesPath, options.IncludeTransitiveDependencies, options.ExcludePackagesFilterOption)
+                    .MapAsync(packages => licencesFetcher.FetchAsync(packages.FlatPackages))
+                    .MapAsync(lic => FilterByOutputVersionAsync(
+                        lic,
+                        options.MatchOutputVersion,
+                        options.OutputPath!));
 
-            await CreateOutputAsync(nugetLicences);
+                await CreateOutputAsync(nugetLicences);
 
-            nugetLicences.Tap(lic => licencesChecker.CheckLicences(lic, options.AllowedLicences));
+                nugetLicences.Tap(lic => licencesChecker.CheckLicences(lic, options.AllowedLicences));
+            }
+            catch (Exception ex)
+            {
+                logger.LogException(ex);
+            }
         }
 
         private async Task CreateOutputAsync(Maybe<IReadOnlyCollection<NugetLicence>> nugetLicences)

@@ -3,6 +3,7 @@
     public interface ILoggingService
     {
         void LogDebug(string message);
+        void LogException(Exception ex);
         void LogError(string message);
         void LogInfo(string message);
     }

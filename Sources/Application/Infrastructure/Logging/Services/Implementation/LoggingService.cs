@@ -24,6 +24,12 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services.Implementation
             Log(LogLevel.Error, message);
         }
 
+        public void LogException(Exception ex)
+        {
+            var msg = $"{ex.Message};{ex.StackTrace}";
+            LogError(msg);
+        }
+
         public void LogInfo(string message)
         {
             Log(LogLevel.Info, message);
