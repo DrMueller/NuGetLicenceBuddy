@@ -37,7 +37,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
                         options.MatchOutputVersion,
                         options.OutputPath!));
 
-                //await CreateOutputAsync(nugetLicences);
+                await CreateOutputAsync(nugetLicences);
 
                 nugetLicences.Tap(lic => licencesChecker.CheckLicences(lic, options.AllowedLicences));
             }
@@ -50,7 +50,6 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
             logger.LogDebug("Finished.");
         }
 
-        // ReSharper disable once UnusedMember.Local
         private async Task CreateOutputAsync(Maybe<IReadOnlyCollection<NugetLicence>> nugetLicences)
         {
             await nugetLicences
