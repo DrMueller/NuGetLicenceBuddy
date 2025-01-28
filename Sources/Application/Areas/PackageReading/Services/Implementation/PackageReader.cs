@@ -62,16 +62,16 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Implementation
 
                 var transitiveDeps = await transitiveDepFactory.CreateAsync(target.Name, new NugetIdentifier(dep.Name));
 
-                var compileToken = (JProperty)dep.Value
-                    .SelectToken("compile")!
-                    .First!;
+                var compileToken = (JProperty?)dep.Value
+                    .SelectToken("compile")?
+                    .FirstOrDefault();
 
-                var dllName = compileToken.Name.Split('/').Last();
+                var dllName = compileToken?.Name.Split('/').Last();
 
                 var nuget = new NugetPackage(
                     PackageIdentifier.Parse(dep.Name),
                     transitiveDeps,
-                    dllName);
+                    dllName ?? "(Not found)");
 
                 allNugets.Add((nuget, dependencyPackages));
             }
