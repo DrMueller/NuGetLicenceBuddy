@@ -25,9 +25,11 @@ steps:
 ## Example configurations
 
 ```
-nugetlicencebuddy -i -s $(Build.SourcesDirectory) -a MIT -e .*(Microsoft^|System).* -o 
-$(Build.SourcesDirectory)\Sources\Application\bin\Debug -m
+nugetlicencebuddy -i -s $(Build.SourcesDirectory) -e .*(Microsoft^|System).* -o $(Build.SourcesDirectory)\Sources\Application\bin\Debug -m
+
+nugetlicencebuddy -i -s $(Build.SourcesDirectory) -e .*(Microsoft^|System).* -o $(Build.SourcesDirectory)\Sources\Application\bin\Debug -m -a MIT
 ```
+
 
 ## Options
 

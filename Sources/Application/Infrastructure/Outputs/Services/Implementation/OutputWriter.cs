@@ -11,14 +11,7 @@ namespace Mmu.NuGetLicenceBuddy.Infrastructure.Outputs.Services.Implementation
         {
             var outputPath = Environment.CurrentDirectory;
             var outputFilePath = fileSystem.Path.Combine(outputPath, "licences.txt");
-
-            logger.LogInfo($"Writing output to {outputFilePath}..");
-
-            if (!fileSystem.Directory.Exists(outputPath))
-            {
-                fileSystem.Directory.CreateDirectory(outputPath);
-            }
-
+            logger.LogDebug($"Writing output to {outputFilePath}..");
             await fileSystem.File.WriteAllTextAsync(outputFilePath, text);
         }
     }
