@@ -81,8 +81,40 @@ namespace Mmu.NuGetLicenceBuddy.Areas.Orchestration.Services.Implementation
             DebugDllInfos(dllInfos);
 
             var result = licences
-                .Where(f => dllInfos.Any(info => info.IsMatch(f.NugetDllName, f.NugetVersion)))
+                .GroupBy(f => f.NugetIdentifier)
+                .Where(f => f.Count() == 1)
+                .Select(f => f.Single())
                 .ToList();
+
+            var multipleLicences = licences.Except(result)
+                .GroupBy(f => f.NugetIdentifier)
+                .ToList();
+
+            foreach (var licenceGroup in multipleLicences)
+            {
+                logger.LogDebug($"Multiple licences found for {licenceGroup.Key}..");
+                var dllInfo = dllInfos.SingleOrDefault(f => f.AssemblyName == licenceGroup.Key);
+
+                if (dllInfo == null)
+                {
+                    logger.LogDebug($"No dll info found for {licenceGroup.Key}..");
+                    result.AddRange(licenceGroup);
+
+                    continue;
+                }
+
+                var matchingNugetVersion = licenceGroup.SingleOrDefault(f => f.NugetVersion == dllInfo.AssemblyVersion);
+
+                if (matchingNugetVersion == null)
+                {
+                    logger.LogDebug($"No matching nuget version found for {licenceGroup.Key} and version {dllInfo.AssemblyVersion}..");
+                    result.AddRange(licenceGroup);
+
+                    continue;
+                }
+
+                result.Add(matchingNugetVersion);
+            }
 
             return result;
         }

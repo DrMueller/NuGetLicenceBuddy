@@ -17,13 +17,20 @@ namespace Mmu.NuGetLicenceBuddy.Areas.OutputReading.Services.Implementation
 
             foreach (var dllPath in allDlls)
             {
-                var fileInfo = new FileInfo(dllPath);
-                var assembly = Assembly.LoadFile(fileInfo.FullName);
-                var assemblyName = assembly.GetName();
-                var info = FileVersionInfo.GetVersionInfo(fileInfo.FullName);
+                try
+                {
+                    var fileInfo = new FileInfo(dllPath);
+                    var assembly = Assembly.LoadFile(fileInfo.FullName);
+                    var assemblyName = assembly.GetName();
+                    var info = FileVersionInfo.GetVersionInfo(fileInfo.FullName);
 
-                var version = $"{info.FileMajorPart}.{info.FileMinorPart}.{info.FileBuildPart}";
-                result.Add(new AssemblyInfo(assemblyName.Name!, version));
+                    var version = $"{info.FileMajorPart}.{info.FileMinorPart}.{info.FileBuildPart}";
+                    result.Add(new AssemblyInfo(assemblyName.Name!, version));
+                }
+                catch (Exception ex)
+                {
+                    logger.LogDebug($"Error reading assembly info from {dllPath}: {ex.Message}");
+                }
             }
 
             foreach (var item in result)
