@@ -4,7 +4,10 @@
     {
         public void FailTask()
         {
-            Console.WriteLine("##vso[task.complete result=Failed;]Task failed due to an error.");
+            Console.Error.WriteLine("##vso[task.complete result=Failed;]Task failed due to an error.");
+
+            Console.Error.Flush();
+
             Environment.Exit(1);
         }
 

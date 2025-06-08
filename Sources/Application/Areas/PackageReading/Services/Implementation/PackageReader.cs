@@ -4,6 +4,7 @@ using Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Servants;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes;
 using Mmu.NuGetLicenceBuddy.Infrastructure.LanguageExtensions.Types.Maybes.Implementation;
 using Mmu.NuGetLicenceBuddy.Infrastructure.Logging.Services;
+using Mmu.NuGetLicenceBuddy.Infrastructure.Outputs.Services;
 using Newtonsoft.Json.Linq;
 
 namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Implementation
@@ -11,7 +12,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Implementation
     [UsedImplicitly]
     public class PackageReader(
         ILoggingService logger,
-        ITransitiveDependencyFactory transitiveDepFactory) : IPackageReader
+        ITransitiveDependencyFactory transitiveDepFactory,
+        ITaskOutputService outputService) : IPackageReader
     {
         public async Task<Maybe<NugetPackages>> TryReadingAsync(
             string sourcePath,
@@ -104,6 +106,8 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Implementation
             if (string.IsNullOrWhiteSpace(assetsJsonPath))
             {
                 logger.LogError("project.assets.json file not found. Cancelling..");
+
+                outputService.FailTask();
 
                 return None.Value;
             }
