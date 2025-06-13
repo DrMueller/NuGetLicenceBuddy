@@ -48,7 +48,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.PackageReading.Services.Servants.Implement
                 return;
             }
 
-            var packageDependencyInfo = await resource.GetDependencyInfoAsync(packageIdentity.Id, packageIdentity.Version, cacheContext, logger, default);
+            var packageDependencyInfo = await resource.GetDependencyInfoAsync(packageIdentity.Id, packageIdentity.Version, cacheContext, logger, CancellationToken.None);
 
             if (packageDependencyInfo == null)
             {
