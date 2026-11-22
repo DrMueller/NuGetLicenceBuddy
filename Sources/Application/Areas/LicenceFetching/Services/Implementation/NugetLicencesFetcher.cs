@@ -25,7 +25,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Implementation
             {
                 var nuspecIdentity = nuspec.Reader.GetIdentity();
                 var nuspecVersion = nuspec.Reader.GetVersion();
-                var licenceUrl = nuspec.Reader.GetLicenseUrl();
+                var licenceUrl = nuspec.Reader.GetLicenseUrl() ?? string.Empty;
                 logger.LogDebug($"Getting licence for package {nuspecIdentity.Id}..");
 
                 var licence = await fileReader
