@@ -19,7 +19,7 @@ namespace Mmu.NuGetLicenceBuddy.Areas.LicenceFetching.Services.Servants.Implemen
         {
             var repository = Repository.Factory.GetCoreV3("https://api.nuget.org/v3/index.json");
             var resource = await repository.GetResourceAsync<FindPackageByIdResource>()
-                ?? throw new InvalidOperationException("Could not resolve FindPackageByIdResource from nuget.org.");
+                           ?? throw new InvalidOperationException("Could not resolve FindPackageByIdResource from nuget.org.");
             var cache = new SourceCacheContext();
             var logger = new NullLogger();
 
